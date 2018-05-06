@@ -6,6 +6,7 @@ import ConnectionStatus from './Component/ConnectionStatus';
 import Publisher from './Component/Publisher';
 import Subscriber from './Component/Subscriber';
 import config from './config';
+import agent from './Provider/agent';
 import { 
   Grid,
   Header
