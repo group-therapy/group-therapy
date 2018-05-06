@@ -6,6 +6,10 @@ import ConnectionStatus from './Component/ConnectionStatus';
 import Publisher from './Component/Publisher';
 import Subscriber from './Component/Subscriber';
 import config from './config';
+import { 
+  Grid,
+  Header
+} from 'semantic-ui-react';
 
 class App extends Component {
   constructor(props) {
@@ -36,20 +40,26 @@ class App extends Component {
 
   render() {
     return (
-      <OTSession
-        apiKey={this.props.apiKey}
-        sessionId={this.props.sessionId}
-        token={this.props.token}
-        eventHandlers={this.sessionEvents}
-        onError={this.onError}
-      >
-        {this.state.error ? <div>{this.state.error}</div> : null}
-        <ConnectionStatus connected={this.state.connected} />
-        <Publisher />
-        <OTStreams>
-          <Subscriber />
-        </OTStreams>
-      </OTSession>
+      <div>
+        <Grid.Row>
+          <Header as='h1'>Remotely Care</Header>
+        </Grid.Row>
+
+        <OTSession
+          apiKey={this.props.apiKey}
+          sessionId={this.props.sessionId}
+          token={this.props.token}
+          eventHandlers={this.sessionEvents}
+          onError={this.onError}
+        >
+          {this.state.error ? <div>{this.state.error}</div> : null}
+          <ConnectionStatus connected={this.state.connected} />
+          <Publisher />
+          <OTStreams>
+            <Subscriber />
+          </OTStreams>
+        </OTSession>
+      </div>
     );
   }
 }
