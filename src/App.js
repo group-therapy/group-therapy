@@ -40,11 +40,11 @@ class App extends Component {
   }
 
   makePayment = (e) => {
-
+    
   };
 
   displayPayments = (e) => {
-
+    
   };
 
   render() {
