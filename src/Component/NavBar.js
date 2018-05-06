@@ -11,8 +11,8 @@ class Physician extends Component {
 			<NavLink exact to="/physician" activeStyle={this.active}>
 			Physician
 			</NavLink>
-			<NavLink exact to="/patients" activeStyle={this.active}>
-			Patients
+			<NavLink exact to="/patient" activeStyle={this.active}>
+			Patient
 			</NavLink>
 		</div>);
 	}
