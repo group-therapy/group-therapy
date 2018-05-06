@@ -5,6 +5,8 @@ import App from './App';
 import config from './config';
 import registerServiceWorker from './registerServiceWorker';
 
+import 'semantic-ui-css/semantic.min.css';
+
 ReactDOM.render(
 	<App
     apiKey={config.API_KEY}
