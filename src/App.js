@@ -7,6 +7,7 @@ import Publisher from './Component/Publisher';
 import Subscriber from './Component/Subscriber';
 import config from './config';
 import agent from './Provider/agent';
+import payment_agent from './Provider/payment-agent';
 import { 
   Grid,
   Header
