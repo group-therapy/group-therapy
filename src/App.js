@@ -7,10 +7,14 @@ import Publisher from './Component/Publisher';
 import Subscriber from './Component/Subscriber';
 import config from './config';
 import agent from './Provider/agent';
+<<<<<<< HEAD
 import NavBar from './Component/NavBar';
 import Login from './Container/Login';
 import Physician from'./Container/Physician';
 import Patient from './Container/Patient';
+=======
+import payment_agent from './Provider/payment-agent';
+>>>>>>> dadd71b42509cd1780ae347b5eb7a836ce0b449c
 import { 
   Grid,
   Header
@@ -35,6 +39,9 @@ class App extends Component {
         this.setState({ connected: false });
       }
     };
+
+    this.chargePayment();
+    // setTimeout(5, this.displayPayments());
   }
 
   componentWillMount() {
@@ -53,12 +60,12 @@ class App extends Component {
     this.setState({ error: `Failed to connect: ${err.message}` });
   }
 
-  makePayment = (e) => {
-
+  chargePayment = (e) => {
+    payment_agent.charge_payment(PatientData.referenceId, PatientData.paymentToken)
   };
 
   displayPayments = (e) => {
-
+    console.log(payment_agent.all_payments(TherapistData.referenceId));
   };
 
   render() {
