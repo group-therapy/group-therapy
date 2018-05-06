@@ -7,14 +7,11 @@ import Publisher from './Component/Publisher';
 import Subscriber from './Component/Subscriber';
 import config from './config';
 import agent from './Provider/agent';
-<<<<<<< HEAD
 import NavBar from './Component/NavBar';
 import Login from './Container/Login';
 import Physician from'./Container/Physician';
 import Patient from './Container/Patient';
-=======
 import payment_agent from './Provider/payment-agent';
->>>>>>> dadd71b42509cd1780ae347b5eb7a836ce0b449c
 import { 
   Grid,
   Header
