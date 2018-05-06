@@ -8,18 +8,22 @@ const ENTERPRISE_API_BASE = config.ENTERPRISE_API_BASE;
 
 const responseBody = res => res.body;
 
-let token = superagent.post('https://hack.softheon.io/oauth2/connect/token').type('form')
-.send('client_id=1b9f1295-4c09-4d50-b8d6-b1d5ee68b702')
-.send('client_secret=769f06a8-b185-4791-9afc-cf9a5caceb4d')
-.send('grant_type=client_credentials')
-.send('scope=enterpriseapi')
-.send('username=hack059')
-.send('password=2jYQNxwY').then(() => responseBody.access_token);
-console.log(token);
+let token = null;
 const tokenPlugin = req => {
-  if (token) {
-    req.set('authorization', `Token ${token}`);
+  token = window.localStorage.getItem('jwt');
+  if (window.localStorage.getItem('jwt')) {
+    req.set('authorization', `Bearer ${token}`);
   }
+}
+
+const getToken = () => {
+  return superagent.post('https://hack.softheon.io/oauth2/connect/token').type('form')
+  .send('client_id=1b9f1295-4c09-4d50-b8d6-b1d5ee68b702')
+  .send('client_secret=769f06a8-b185-4791-9afc-cf9a5caceb4d')
+  .send('grant_type=password')
+  .send('scope=enterpriseapi openid')
+  .send('username=hack059')
+  .send('password=2jYQNxwY').then(responseBody);
 }
 
 const requests = {
@@ -32,6 +36,10 @@ const requests = {
   post: (url, body) =>
     superagent.post(`${ENTERPRISE_API_BASE}${url}`, body).use(tokenPlugin).then(responseBody)
 };
+
+const Enterprise = {
+  createEntityTemplate: (definitionModel) => {requests.post('/template/ftl', definitionModel)}
+}
 
 const Auth = {
   current: () =>
@@ -47,5 +55,6 @@ const Auth = {
 
 export default {
   Auth,
-  setToken: _token => { token = _token; }
+  getToken,
+  Enterprise,
 };

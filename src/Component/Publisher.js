@@ -45,20 +45,6 @@ export default class Publisher extends Component {
           }}
           onError={this.onError}
         />
-        <RadioButtons
-          buttons={[
-            {
-              label: 'Camera',
-              value: 'camera'
-            },
-            {
-              label: 'Screen',
-              value: 'screen'
-            }
-          ]}
-          initialChecked={this.state.videoSource}
-          onChange={this.setVideoSource}
-        />
         <CheckBox
           label="Publish Audio"
           initialChecked={this.state.audio}

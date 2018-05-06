@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { OT, OTSession, OTStreams, preloadScript } from 'opentok-react';
 import ConnectionStatus from './Component/ConnectionStatus';
@@ -7,6 +7,10 @@ import Publisher from './Component/Publisher';
 import Subscriber from './Component/Subscriber';
 import config from './config';
 import agent from './Provider/agent';
+import NavBar from './Component/NavBar';
+import Login from './Container/Login';
+import Physician from'./Container/Physician';
+import Patient from './Container/Patient';
 import { 
   Grid,
   Header
@@ -19,7 +23,8 @@ class App extends Component {
 
     this.state = {
       error: null,
-      connected: false
+      connected: false,
+      isLoaded: false
     };
 
     this.sessionEvents = {
@@ -32,9 +37,17 @@ class App extends Component {
     };
   }
 
-  // componentWillMount() {
-  //   OT.registerScreenSharingExtension('chrome', config.CHROME_EXTENSION_ID, 2);
-  // }
+  componentWillMount() {
+    agent.getToken().then(result => {
+      window.localStorage.setItem('jwt', result.access_token);
+    }).then(this.setState({isLoaded: true}));
+  }
+
+  componentDidMount() {
+    if (this.state.isLoaded) {
+      agent.Enterprise.createEntityTemplate();
+    }
+  }
 
   onError = (err) => {
     this.setState({ error: `Failed to connect: ${err.message}` });
@@ -49,26 +62,21 @@ class App extends Component {
   };
 
   render() {
+    const { isLoaded } = this.state;
     return (
       <div>
+        { isLoaded ? (
+          <div>
+          <NavBar />
         <Grid.Row>
           <Header as='h1'>Remotely Care</Header>
         </Grid.Row>
-
-        <OTSession
-          apiKey={this.props.apiKey}
-          sessionId={this.props.sessionId}
-          token={this.props.token}
-          eventHandlers={this.sessionEvents}
-          onError={this.onError}
-        >
-          {this.state.error ? <div>{this.state.error}</div> : null}
-          <ConnectionStatus connected={this.state.connected} />
-          <Publisher />
-          <OTStreams>
-            <Subscriber />
-          </OTStreams>
-        </OTSession>
+        <Switch>
+          <Route exact path="/" component={Login}/>
+          <Route path="physician" component={Physician}/>
+          <Route path="patient" component={Patient}/>
+        </Switch>
+        </div>) : null}
       </div>
     );
   }
