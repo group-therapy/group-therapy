@@ -18,8 +18,9 @@ let token = superagent.post('https://hack.softheon.io/oauth2/connect/token').typ
 .send('password=2jYQNxwY').then(res => responseBody(res).access_token);
 console.log(token);
 const tokenPlugin = req => {
-  if (token) {
-    req.set('Authorization', `Bearer ${token}`);
+  token = window.localStorage.getItem('jwt');
+  if (window.localStorage.getItem('jwt')) {
+    req.set('authorization', `Bearer ${token}`);
   }
 }
 
