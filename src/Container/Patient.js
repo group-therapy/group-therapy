@@ -45,6 +45,9 @@ class Patient extends Component {
 	          	<ConnectionStatus connected={this.state.connected} />
 	          </div>
 	          <Publisher />
+	          <OTStreams>
+	            <Subscriber />
+	          </OTStreams>
 		      </OTSession>
 		    </Grid>
 			</div>
