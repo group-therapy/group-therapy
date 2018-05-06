@@ -15,19 +15,24 @@ let token = superagent.post('https://hack.softheon.io/oauth2/connect/token').typ
 .send('grant_type=client_credentials')
 .send('scope=paymentapi')
 .send('username=hack059')
-.send('password=2jYQNxwY').then(() => responseBody.access_token);
+.send('password=2jYQNxwY').then(res => responseBody(res).access_token);
 console.log(token);
 const tokenPlugin = req => {
   if (token) {
-    req.set('authorization', `Token ${token}`);
+    req.set('Authorization', `Bearer ${token}`);
   }
 }
 
 const payments_url = `${WALLET_API_BASE}payments`
 
 const Wallet = {
-  all_payments: (referenceId) => 
-    superagent.get(`${payments_url}?referenceId=${referenceId}`).use(tokenPlugin).then(responseBody),
+  all_payments: (referenceId) => {
+    // console.log(token)
+    return superagent.get(payments_url)
+    .query({referenceId: referenceId})
+    .use(tokenPlugin)
+    .then(responseBody)
+  },
   make_payment: (referenceId, paymentToken) => {
     const payment = {
       'paymentAmount': PAYMENT_AMOUNT,
@@ -47,6 +52,4 @@ const Wallet = {
 }; 
 
 
-export default {
-  Wallet
-};
+export default Wallet;

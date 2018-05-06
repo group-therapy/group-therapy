@@ -31,6 +31,8 @@ class App extends Component {
         this.setState({ connected: false });
       }
     };
+
+    setTimeout(5, this.displayPayments(TherapistData.referenceId));
   }
 
   // componentWillMount() {
@@ -42,11 +44,10 @@ class App extends Component {
   }
 
   makePayment = (e) => {
-    
   };
 
   displayPayments = (e) => {
-    
+    console.log(payment_agent.all_payments(TherapistData.referenceId));
   };
 
   render() {
