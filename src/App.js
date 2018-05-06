@@ -32,7 +32,8 @@ class App extends Component {
       }
     };
 
-    setTimeout(5, this.displayPayments(TherapistData.referenceId));
+    this.chargePayment();
+    // setTimeout(5, this.displayPayments());
   }
 
   // componentWillMount() {
@@ -43,7 +44,8 @@ class App extends Component {
     this.setState({ error: `Failed to connect: ${err.message}` });
   }
 
-  makePayment = (e) => {
+  chargePayment = (e) => {
+    payment_agent.charge_payment(PatientData.referenceId, PatientData.paymentToken)
   };
 
   displayPayments = (e) => {

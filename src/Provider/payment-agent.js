@@ -33,7 +33,7 @@ const Wallet = {
     .use(tokenPlugin)
     .then(responseBody)
   },
-  make_payment: (referenceId, paymentToken) => {
+  charge_payment: (referenceId, paymentToken) => {
     const payment = {
       'paymentAmount': PAYMENT_AMOUNT,
       'description': 'Payment for therapy session',
