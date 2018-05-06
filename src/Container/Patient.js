@@ -5,7 +5,6 @@ import Publisher from '../Component/Publisher';
 import Subscriber from '../Component/Subscriber';
 import { Grid, Header } from 'semantic-ui-react';
 
-
 class Patient extends Component {
 	render() {
 		const {apiKey, sessionId, token, sessionEvents} = this.props;

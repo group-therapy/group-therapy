@@ -33,7 +33,7 @@ class App extends Component {
       }
     };
 
-    this.chargePayment();
+    // this.chargePayment();
     // setTimeout(5, this.displayPayments());
   }
 
