@@ -3,7 +3,7 @@ import { OTSession, OTStreams } from 'opentok-react';
 import ConnectionStatus from '../Component/ConnectionStatus';
 import Publisher from '../Component/Publisher';
 import Subscriber from '../Component/Subscriber';
-import { Grid, Header } from 'semantic-ui-react';
+import { Button, Grid, Header } from 'semantic-ui-react';
 
 class Patient extends Component {
 	constructor(props) {
@@ -34,21 +34,30 @@ class Patient extends Component {
 							<Header as='h1'>Remotely Care</Header>
 						</Grid.Column>
 					</Grid.Row>
-					<OTSession
-	          apiKey={this.props.apiKey}
-	          sessionId={this.props.sessionId}
-	          token={this.props.token}
-	          eventHandlers={this.sessionEvents}
-	          onError={this.onError}>
-	          {this.props.error ? <div>{this.props.error}</div> : null}
-	          <div class={this.state.connected ? 'ui label label green' : 'ui label label red'}>
-	          	<ConnectionStatus connected={this.state.connected} />
-	          </div>
-	          <Publisher />
-	          <OTStreams>
-	            <Subscriber />
-	          </OTStreams>
-		      </OTSession>
+					<Grid.Row>
+						<Grid.Column>
+							<OTSession
+			          apiKey={this.props.apiKey}
+			          sessionId={this.props.sessionId}
+			          token={this.props.token}
+			          eventHandlers={this.sessionEvents}
+			          onError={this.onError}>
+			          {this.props.error ? <div>{this.props.error}</div> : null}
+			          <div class={this.state.connected ? 'ui label label green' : 'ui label label red'}>
+			          	<ConnectionStatus connected={this.state.connected} />
+			          </div>
+			          <Publisher />
+			          <OTStreams>
+			            <Subscriber />
+			          </OTStreams>
+				      </OTSession>
+						</Grid.Column>
+					</Grid.Row>
+					<Grid.Row>
+						<Grid.Column>
+							<Button>End Session</Button>
+						</Grid.Column>
+					</Grid.Row>
 		    </Grid>
 			</div>
 		);

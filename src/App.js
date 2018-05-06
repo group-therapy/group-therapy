@@ -34,7 +34,7 @@ class App extends Component {
     };
 
     // this.chargePayment();
-    // setTimeout(5, this.displayPayments());
+    setTimeout(5, this.displayPayments());
   }
 
   componentWillMount() {
