@@ -10,6 +10,7 @@ import {
   Grid,
   Header
 } from 'semantic-ui-react';
+import { TherapistData, PatientData } from './WalletFixtures';
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +38,14 @@ class App extends Component {
   onError = (err) => {
     this.setState({ error: `Failed to connect: ${err.message}` });
   }
+
+  makePayment = (e) => {
+
+  };
+
+  displayPayments = (e) => {
+
+  };
 
   render() {
     return (
