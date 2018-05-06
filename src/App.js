@@ -10,9 +10,6 @@ import agent from './Provider/agent';
 import Login from './Container/Login';
 import Physician from'./Container/Physician';
 import Patient from './Container/Patient';
-import payment_agent from './Provider/payment-agent';
-
-import { TherapistData, PatientData } from './WalletFixtures';
 
 class App extends Component {
   constructor(props) {
@@ -33,8 +30,6 @@ class App extends Component {
       }
     };
 
-    // this.chargePayment();
-    setTimeout(5, this.displayPayments());
   }
 
   componentWillMount() {
@@ -52,14 +47,6 @@ class App extends Component {
   onError = (err) => {
     this.setState({ error: `Failed to connect: ${err.message}` });
   }
-
-  chargePayment = (e) => {
-    payment_agent.charge_payment(PatientData.referenceId, PatientData.paymentToken)
-  };
-
-  displayPayments = (e) => {
-    console.log(payment_agent.all_payments(TherapistData.referenceId));
-  };
 
   render() {
     const { isLoaded, error, connected } = this.state;

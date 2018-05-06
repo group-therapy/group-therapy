@@ -4,6 +4,8 @@ import ConnectionStatus from '../Component/ConnectionStatus';
 import Publisher from '../Component/Publisher';
 import Subscriber from '../Component/Subscriber';
 import { Button, Grid, Header } from 'semantic-ui-react';
+import payment_agent from '../Provider/payment-agent';
+import { TherapistData, PatientData } from '../WalletFixtures';
 
 class Patient extends Component {
 	constructor(props) {
@@ -23,6 +25,10 @@ class Patient extends Component {
 	      }
 	    };
 	}
+
+	chargePayment = (e) => {
+    payment_agent.charge_payment(PatientData.referenceId, PatientData.paymentToken)
+  };
 
 	render() {
 		const { apiKey, sessionId, token } = this.props;
