@@ -6,7 +6,8 @@ import Subscriber from '../Component/Subscriber';
 
 class Patient extends Component {
 	render() {
-		return
+		const {apiKey, sessionId, token, sessionEvents} = this.props;
+		return (
 		<div>
 			<OTSession
 	          apiKey={this.props.apiKey}
@@ -14,15 +15,12 @@ class Patient extends Component {
 	          token={this.props.token}
 	          eventHandlers={this.sessionEvents}
 	          onError={this.onError}>
-	          {this.state.error ? <div>{this.state.error}</div> : null}
-	          <ConnectionStatus connected={this.state.connected} />
+	          {this.props.error ? <div>{this.props.error}</div> : null}
+	          <ConnectionStatus connected={this.props.connected} />
 	          <Publisher />
-	          <OTStreams>
-	            <Subscriber />
-	          </OTStreams>
 	        </OTSession>
-		</div>;
+		</div>);
 	}
 }
 
-export default Patient
+export default Patient;

@@ -7,15 +7,11 @@ import Publisher from './Component/Publisher';
 import Subscriber from './Component/Subscriber';
 import config from './config';
 import agent from './Provider/agent';
-import NavBar from './Component/NavBar';
 import Login from './Container/Login';
 import Physician from'./Container/Physician';
 import Patient from './Container/Patient';
 import payment_agent from './Provider/payment-agent';
-import { 
-  Grid,
-  Header
-} from 'semantic-ui-react';
+
 import { TherapistData, PatientData } from './WalletFixtures';
 
 class App extends Component {
@@ -49,7 +45,7 @@ class App extends Component {
 
   componentDidMount() {
     if (this.state.isLoaded) {
-      agent.Enterprise.createEntityTemplate();
+      //agent.Enterprise.createEntityTemplate();
     }
   }
 
@@ -66,21 +62,33 @@ class App extends Component {
   };
 
   render() {
-    const { isLoaded } = this.state;
+    const { isLoaded, error, connected } = this.state;
+    const {apiKey, sessionId, token, sessionEvents} = this.props;
     return (
       <div>
-        { isLoaded ? (
-          <div>
-          <NavBar />
-        <Grid.Row>
-          <Header as='h1'>Remotely Care</Header>
-        </Grid.Row>
         <Switch>
           <Route exact path="/" component={Login}/>
-          <Route path="physician" component={Physician}/>
-          <Route path="patient" component={Patient}/>
+          <Route 
+            path="/physician" 
+            render={props => <Physician {...props} 
+                                apiKey={apiKey} 
+                                sessionId={sessionId} 
+                                token={token} 
+                                sessionEvents={sessionEvents} 
+                                error={error} 
+                                connected={connected}/>}
+          />
+          <Route 
+            path="/patient" 
+            render={props => <Patient {...props} 
+                                apiKey={apiKey} 
+                                sessionId={sessionId} 
+                                token={token} 
+                                sessionEvents={sessionEvents} 
+                                error={error} 
+                                connected={connected}/>}
+          />
         </Switch>
-        </div>) : null}
       </div>
     );
   }
