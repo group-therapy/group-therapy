@@ -41,7 +41,7 @@ class Physician extends Component {
 	          eventHandlers={this.sessionEvents}
 	          onError={this.onError}>
 	          {this.props.error ? <div>{this.props.error}</div> : null}
-	          <div class='ui label {this.state.connected ? green : red} label'>
+	          <div class={this.state.connected ? 'ui label label green' : 'ui label label red'}>
 	          	<ConnectionStatus connected={this.state.connected} />
 	          </div>
 	          <Publisher />
